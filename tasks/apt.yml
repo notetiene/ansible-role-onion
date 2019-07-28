@@ -31,3 +31,8 @@
     name: "{{ item }}"
     state: present
   loop: "{{ onion_apt_packages }}"
+
+- set_fact:
+    tor_user: "{{ onion_tor_user or 'debian-tor' }}"
+- set_fact:
+    tor_group: "{{ onion_tor_group or 'debian-tor' }}"

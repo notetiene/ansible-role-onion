@@ -11,6 +11,8 @@ onion_services:
     onion_ports:
       - [22, 22]
     onion_authorized_clients: []
+onion_tor_user:
+onion_tor_group:
 
 onions_configuration:
   SocksPort: 9050

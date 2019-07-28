@@ -24,12 +24,11 @@
   check_mode: no
   changed_when: false
 
-
 - name: ensure onion directory is present
   file:
     path: "/var/lib/tor/{{ item.key }}/"
-    owner: debian-tor
-    group: debian-tor
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
     mode: 0700
     state: directory
   with_dict: "{{ onion_services }}"
@@ -49,8 +48,8 @@
   template:
     src: hostname.j2
     dest: "/var/lib/tor/{{ item.key }}/hostname"
-    owner: debian-tor
-    group: debian-tor
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
     mode: 0600
     backup: yes
   with_dict: "{{ onion_services }}"
@@ -64,8 +63,8 @@
   template:
     src: private_key.j2
     dest: "/var/lib/tor/{{ item.key }}/private_key"
-    owner: debian-tor
-    group: debian-tor
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
     mode: 0600
     backup: yes
   with_dict: "{{ onion_services }}"
@@ -91,8 +90,8 @@
 - name: ensure file permissions are correct
   file:
     path: "/var/lib/tor/{{ item.key }}/hs_ed25519_public_key"
-    owner: debian-tor
-    group: debian-tor
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
     mode: 0600
   with_dict: "{{ onion_services }}"
   when:
@@ -116,8 +115,8 @@
 - name: ensure file permissions are correct
   file:
     path: "/var/lib/tor/{{ item.key }}/hs_ed25519_secret_key"
-    owner: debian-tor
-    group: debian-tor
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
     mode: 0600
   with_dict: "{{ onion_services }}"
   when:
@@ -129,8 +128,8 @@
 - name: ensure onion directory is absent
   file:
     path: "/var/lib/tor/{{ item.key }}/"
-    owner: debian-tor
-    group: debian-tor
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
     mode: 0700
     state: absent
   with_dict: "{{ onion_services }}"
