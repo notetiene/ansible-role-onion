@@ -4,6 +4,15 @@
   gather_facts: false
   tasks:
     - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-      become: true
-      changed_when: false
+      block:
+        - raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+          become: true
+          changed_when: false
+          when: ansible_distribution == 'Debian' or
+                ansible_distribution == 'Ubuntu'
+        - raw: test -e /usr/bin/python || (yum -y update && yum install -y python)
+          become: true
+          changed_when: false
+          when: ansible_distribution == 'CentOS' or
+                ansible_distribution == 'RedHat' or
+                ansible_distribution == 'Fedora''

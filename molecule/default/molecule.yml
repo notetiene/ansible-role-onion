@@ -12,6 +12,8 @@ platforms:
     box: ubuntu/xenial64
   - name: bionic64
     box: ubuntu/bionic64
+  - name: centos7
+    box: centos/7
 provisioner:
   name: ansible
   become: true

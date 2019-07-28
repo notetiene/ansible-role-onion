@@ -1,0 +1,11 @@
+---
+
+- name: ensure the required repository is present
+  package:
+    name: epel-release
+    state: present
+
+- set_fact:
+    tor_user: "{{ onion_tor_user or 'toranon' }}"
+- set_fact:
+    tor_group: "{{ onion_tor_group or 'toranon' }}"

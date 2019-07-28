@@ -6,6 +6,11 @@
   when: ansible_distribution == 'Debian' or
         ansible_distribution == 'Ubuntu'
 
+- name: executing RedHat (yum) related tasks
+  include_tasks: yum.yml
+  when: ansible_distribution == 'CentOS' or
+        ansible_distribution == 'RedHat' or
+        ansible_distribution == 'Fedora'
 
 - name: ensure tor is installed
   package:
